@@ -10,19 +10,25 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+  // Widget? activeScreen;  // the variable contains active screen that user see. Can be null
+  var activeScreen =
+      'start-screen'; // the variable contains active screen that user see. Can be null
 
-  Widget? activeScreen;  // the variable contains active screen that user see. Can be null
-
-  @override
+  // @override
   // initState function runs first time the object is created and not runs after to modify state
-  void initState() { 
-    activeScreen = StartScreen(switchScreen);
-    super.initState();
-  }
+  // void initState() {
+  //   activeScreen = StartScreen(switchScreen);
+  //   super.initState();
+  // }
 
+  // void switchScreen() {
+  //   setState(() {
+  //     activeScreen = const QuestionsScreen();
+  //   });
+  // }
   void switchScreen() {
     setState(() {
-      activeScreen = const QuestionsScreen();
+      activeScreen = 'questions-screen';
     });
   }
 
@@ -41,7 +47,11 @@ class _QuizState extends State<Quiz> {
               center: Alignment.center,
             ),
           ),
-          child: activeScreen,
+          child:
+              // activeScreen,
+              activeScreen == 'start-screen'
+                  ? StartScreen(switchScreen)
+                  : const QuestionsScreen(),
         ),
       ),
     );
