@@ -11,10 +11,17 @@ class QuestionsScreen extends StatefulWidget {
 }
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
+  var currentQuestionIndex = 0;
+  void answerQuestion() {
+    setState(() {
+      currentQuestionIndex++;
+    });
+    }
   @override
   Widget build(BuildContext context) {
 
-    var currentQuestion = questions[0];
+    var currentQuestion = questions[currentQuestionIndex];
+    
 
     return SizedBox(
       width: double.infinity,
@@ -35,7 +42,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             ),
             //generate the list of buttons with number of "answer" items.
             ...currentQuestion.getShuffledAnswers().map((answer){
-              return AnswerButton(answerText: answer, onTap: (){});
+              return AnswerButton(answerText: answer, onTap: answerQuestion);
             }),
           ],
         ),
