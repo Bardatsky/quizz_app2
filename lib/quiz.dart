@@ -10,8 +10,10 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+  final List<String> selectedAnswers = [];
   // Widget? activeScreen;  // the variable contains active screen that user see. Can be null
-  var activeScreen = 'start-screen'; // the variable contains active screen that user see. Can be null
+  var activeScreen =
+      'start-screen'; // the variable contains active screen that user see. Can be null
 
   // @override
   // initState function runs first time the object is created and not runs after to modify state
@@ -26,9 +28,14 @@ class _QuizState extends State<Quiz> {
   //   });
   // }
   void switchScreen() {
+    
     setState(() {
       activeScreen = 'questions-screen';
     });
+  }
+
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
   }
 
   @override
@@ -36,7 +43,9 @@ class _QuizState extends State<Quiz> {
     Widget screenWidget = StartScreen(switchScreen);
 
     if (activeScreen == 'questions-screen') {
-      screenWidget = const QuestionsScreen();
+      screenWidget = QuestionsScreen(
+        onSelectAnswer: chooseAnswer,
+      );
     }
 
     return MaterialApp(
@@ -53,10 +62,10 @@ class _QuizState extends State<Quiz> {
             ),
           ),
           child: screenWidget,
-              //1 activeScreen,
-              //2 activeScreen == 'start-screen'
-              //     ? StartScreen(switchScreen)
-              //     : const QuestionsScreen(),
+          //1 activeScreen,
+          //2 activeScreen == 'start-screen'
+          //     ? StartScreen(switchScreen)
+          //     : const QuestionsScreen(),
         ),
       ),
     );
