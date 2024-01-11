@@ -30,7 +30,6 @@ class _QuizState extends State<Quiz> {
   //   });
   // }
   void switchScreen() {
-    
     setState(() {
       activeScreen = 'questions-screen';
     });
@@ -43,8 +42,15 @@ class _QuizState extends State<Quiz> {
       setState(() {
         //selectedAnswers = [];
         activeScreen = 'results-screen';
-    });
+      });
     }
+  }
+
+  void restartQuiz() {
+    setState(() {
+      selectedAnswers = [];
+      activeScreen = 'start-screen';
+    });
   }
 
   @override
@@ -57,9 +63,13 @@ class _QuizState extends State<Quiz> {
       );
     }
 
-    if (activeScreen == 'results-screen'){
-      screenWidget = ResultsScreen(chosenAnswers: selectedAnswers,);
+    if (activeScreen == 'results-screen') {
+      screenWidget = ResultsScreen(
+        chosenAnswers: selectedAnswers,
+        onRestart: restartQuiz,
+      );
     }
+
 
     return MaterialApp(
       home: Scaffold(
